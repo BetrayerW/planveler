@@ -1,3 +1,6 @@
+<?php 
+  require_once('connect.php');
+?>
 <html>
   <!-- miwwee  -->
 <head>
@@ -46,7 +49,7 @@
 <div id="navbar">
 <span style="font-size:35px;cursor:pointer;" onclick="openNav(event)">&#9776;</span>
 
-<span class="icon"> <a href="mainpage.html"> 
+<span class="icon"> <a href="index.php"> 
     <img src="pic/66.png" width="160" height="90" alt="" loading="lazy">
   </a>
  </span>
@@ -61,8 +64,8 @@
    <div class="row" style="float: right;margin-right: auto;">
     <div class="col-auto">
       <div class="loginbar">
-   <a href="#Register"style=><img src="pic/Group 5.png" alt="Register"></a> 
-   <a href="#Login"style=><img src="pic/Group 7.png" alt="Login"></a> 
+   <a href="register.php"style=><img src="pic/Group 5.png" alt="Register"></a> 
+   <a href="login.php"style=><img src="pic/Group 7.png" alt="Login"></a> 
   </div>
   </div>
 </div>
@@ -85,7 +88,7 @@
       <div class="registerinfomation">
         <div class="content-4"style="font-weight:bold">General Information</div>
 
-       
+          <form action="register.php" method="post">
           <input type="text" class="form-control" id="userid" placeholder="Username" required>
           <input type="email" class="form-control" id="emaillogin" placeholder="Email"required>
           <input type="text" class="form-control" id="password" placeholder="Firstname"required>

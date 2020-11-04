@@ -1,3 +1,4 @@
+
 <html>
   <!-- miwwee  -->
 <head>
@@ -13,7 +14,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="extentions/css/planveler.css">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="682379957813-qraem7e32mdk8afj1edbfviq50tk04qi.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <style>
   body {
     background: url(pic/bg3.png);
@@ -38,7 +41,7 @@
 
   
   <div style="position: absolute;bottom: 0px;">
-  <p><p><p></p><a href="#">Login</a></p></div>
+  <p><p><p></p><a href="login.php">Login</a></p></div>
 </div>
 
 <div class="container">
@@ -46,7 +49,7 @@
 <div id="navbar">
 <span style="font-size:35px;cursor:pointer;" onclick="openNav(event)">&#9776;</span>
 
-<span class="icon"> <a href="mainpage.html"> 
+<span class="icon"> <a href="index.php"> 
     <img src="pic/66.png" width="160" height="90" alt="" loading="lazy">
   </a>
  </span>
@@ -57,12 +60,11 @@
     <a href="#changlanguage"><img src="pic/Group 3.png" width="90" height="25"alt="th/eng"></a>  
  </div>
 </div>
-  
    <div class="row" style="float: right;margin-right: auto;">
     <div class="col-auto">
       <div class="loginbar">
-   <a href="#Register"style=><img src="pic/Group 5.png" alt="Register"></a> 
-   <a href="#Login"style=><img src="pic/Group 7.png" alt="Login"></a> 
+   <a href="register.php"style=><img src="pic/Group 5.png" alt="Register"></a> 
+   <a href="login.php"style=><img src="pic/Group 7.png" alt="Login"></a> 
   </div>
   </div>
 </div>
@@ -82,42 +84,93 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-4">
-      <div class="registerinfomation">
-        <div class="content-4"style="font-weight:bold">General Information</div>
+     <div class="content-4"> login with</div>
+     <script>
+            var bFbStatus = false;
+            var fbID = "";
+            var fbName = "";
+            var fbEmail = "";
 
-       
-          <input type="text" class="form-control" id="userid" placeholder="Username" required>
-          <input type="email" class="form-control" id="emaillogin" placeholder="Email"required>
-          <input type="text" class="form-control" id="password" placeholder="Firstname"required>
-          <input type="text" class="form-control" id="password" placeholder="Lastname"required>
-          <input type="password" class="form-control" id="password" placeholder="Password"required>
-          <input type="password" class="form-control" id="password" placeholder="Confirm-password"required>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '392948474479784',
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : 'v2.11'
+                });
+                FB.AppEvents.logPageView();   
+            };
 
-      </div>
-              
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+
+            function statusChangeCallback(response){
+
+                    if(bFbStatus == false){
+                        fbID = response.authResponse.userID;
+
+                        if (response.status == 'connected') {
+                            getCurrentUserInfo(response)
+                        } else {
+                            FB.login(function(response) {
+                                if (response.authResponse){
+                                    getCurrentUserInfo(response)
+                                } else {
+                                    console.log('Auth cancelled.')
+                                }
+                            }, { scope: 'email' });
+                        }
+                    }
+
+                    bFbStatus = true;
+            }
+
+            function getCurrentUserInfo() {
+                FB.api('/me?fields=name,email', function(userInfo) {
+
+                    fbName = userInfo.name;
+                    fbEmail = userInfo.email;
+
+                    console.log(fbID);
+                    console.log(fbName);
+                    console.log(fbEmail);
+                });
+            }
+
+            function checkLoginState() {
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
+            }
+        </script>
+        <div style="padding: 100" align="center">
+            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" scope="public_profile,email" onlogin="checkLoginState();" auto-logout-link="true"></div>
+     <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fa fa-facebook" style="margin-right: 20px;"></i>  Sign in with Facebook</button>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fa fa-google" style="color: red; font-size: 20px;margin-right: 30px;"></i> Sign in with Google</button>
+  </script>
     </div>
     <div class="col-4">
       <div class="stupid-line3"></div>
     </div>
     <div class="col-lg-4">
-      <div class="registerinfomation">
-        <div class="content-4"style="font-weight:bold">Contect Details</div>
-
-       
-        <input type="text" class="form-control" id="sex" placeholder="Gender" required>
-        <input type="text" class="form-control" id="job" placeholder="Job"required>
-        <input type="tel" class="form-control" id="tel" placeholder="Tel."required>
-        <input type="date" class="form-control" id="password" placeholder="Birthdate"required>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px;height:10px;width: 10px;">
-        I agree to the <a href="#" style="color:dodgerblue">Planveler Terms & Conditions</a>.
-        <div class="registerbtu"><a href="#submit">Regist</a></div>
-
-
-    </div>
+      <div class="content-4">login your account</div><br>
+        <div class="loginbox">
+          <input type="email" class="form-control" id="emaillogin" placeholder="Email">
+          <input type="password" class="form-control" id="password" placeholder="Password">
+          <a href="Login.php"><div class="loginbtu">Login</div></a>
+          <a href="#forgot"><div class="optionpassword">forgot password  ?</div></a>
+          <a href="#forgot"><div class="optionpassword">create your account</div></a>
+        </div>
        </div>
     </div>
-</div>
   </div>
+
 <div class="bot-bar"style="z-index:1;">
   <div class="container">
     <div class="row justify-content-center" style="margin-top:20px;">
@@ -125,7 +178,7 @@
       !improtant;">
       <div class="botbar-data">
         <h1>About us</h1><p>
-          <p><a href="/planveler.html">What's Planveler?</a>
+          <p><a href="planveler.html">What's Planveler?</a>
             <p><a href="Howtouse.html">How to use</a>
       </div>
     </div>
@@ -157,6 +210,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    <script src="/extentions/css/palnvevlerscript.js"></script>
+    <script src="extentions/css/palnvevlerscript.js"></script>
 </body>
 </html>
